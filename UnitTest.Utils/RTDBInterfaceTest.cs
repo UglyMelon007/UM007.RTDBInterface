@@ -7,7 +7,7 @@ using Utils.Helper;
 namespace UnitTest.Utils
 {
     [TestClass]
-    public class UnitTest1
+    public class RTDBInterfaceTest
     {
         private IContainer _container;
 
