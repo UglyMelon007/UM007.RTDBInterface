@@ -3,11 +3,42 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01", "01", "{55F6C74A-2CA7-4DAA-AB52-8F061E86713B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-DataExhibition", "01-DataExhibition", "{55F6C74A-2CA7-4DAA-AB52-8F061E86713B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-UnitTest", "02-UnitTest", "{8E3F96B0-65EC-4C76-A333-4E4D1532AA26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-DataTransfer", "03-DataTransfer", "{63E4429D-A2CC-4876-BD33-0158599A88AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-DataSource", "04-DataSource", "{E95822FC-BE10-472B-B0B1-E190EE3EDFDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-DataModel", "05-DataModel", "{F01B0062-3ACD-4360-80D4-7755766815A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-Framework", "06-Framework", "{6A66FBC0-5CCD-4675-9CBB-F2C0BDF0749C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07-Utils", "07-Utils", "{F6850954-E4D8-4E62-96F6-84C09F28A6ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08-Interface", "08-Interface", "{8AAE0380-4986-4BDB-9FAB-77D8A8CA5388}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-ReadMe", "09-ReadMe", "{25DDC724-9BFA-4F4B-92AF-C145C0211E0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils.Attributes", "Utils.Attributes\Utils.Attributes.csproj", "{FCDDC79A-B820-4414-ABA8-B838088DB3E0}"
 EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCDDC79A-B820-4414-ABA8-B838088DB3E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCDDC79A-B820-4414-ABA8-B838088DB3E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCDDC79A-B820-4414-ABA8-B838088DB3E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCDDC79A-B820-4414-ABA8-B838088DB3E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FCDDC79A-B820-4414-ABA8-B838088DB3E0} = {F6850954-E4D8-4E62-96F6-84C09F28A6ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A934C789-7631-44ED-86C0-EC0705EAFE25}
