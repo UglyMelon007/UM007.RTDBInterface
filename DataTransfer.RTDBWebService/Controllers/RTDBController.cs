@@ -17,23 +17,11 @@ namespace DataTransfer.RTDBWebService.Controllers
                 $"Get: GetDataByTagAndTime、GetDataByTagAndDuration;\r\nPost:GetDataByTagsAndTime、GetDataByTagsAndDuration";
         }
 
-        [HttpGet("GetDataByTagAndTime")]
-        public ActionResult<string> GetDataByTagAndTime(string tagName, string dateTime)
-        {
-            //yyyy-MM-dd hh:mm:ss
-            return RTDBHelper.GetDataByTagAndTime(tagName, Convert.ToDateTime(dateTime)).ToString(CultureInfo.CurrentCulture);
-        }
-
-        [HttpGet("GetDataByTagAndDuration")]
-        public ActionResult<string> GetDataByTagAndDuration(string tagName, string startTime, string endTime)
-        {
-            return $"GetDataByTagAndTime:\r\nTagName:{tagName}\r\nStartTime:{startTime}-EndTime:{endTime}";
-        }
-
         [HttpPost("GetDataByTagsAndTime")]
         public ActionResult<string> GetDataByTagsAndTime([FromBody] TagsInfo tagsInfo)
         {
-            return $"GetDataByTagAndTime:\r\nTagName:{tagsInfo.TagsName}\r\nDateTime:{tagsInfo.DateTime}";
+            //yyyy-MM-dd hh:mm:ss
+            return RTDBHelper.GetDataByTagAndTime(tagsInfo.TagsName, Convert.ToDateTime(tagsInfo.DateTime)).ToString(CultureInfo.CurrentCulture);
         }
 
         [HttpPost("GetDataByTagsAndDuration")]
