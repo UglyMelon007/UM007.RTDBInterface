@@ -20,6 +20,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08-Interface", "08-Interface", "{8AAE0380-4986-4BDB-9FAB-77D8A8CA5388}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-ReadMe", "09-ReadMe", "{25DDC724-9BFA-4F4B-92AF-C145C0211E0D}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\UglyM\Desktop\UM007.RTDBDataInterface\ReadMe.txt = C:\Users\UglyM\Desktop\UM007.RTDBDataInterface\ReadMe.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils.Attributes", "Utils.Attributes\Utils.Attributes.csproj", "{FCDDC79A-B820-4414-ABA8-B838088DB3E0}"
 EndProject
