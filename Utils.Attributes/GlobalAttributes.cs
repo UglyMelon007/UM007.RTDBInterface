@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace Utils.Helper
+﻿namespace Utils.Attributes
 {
     public static class GlobalAttributes
     {
