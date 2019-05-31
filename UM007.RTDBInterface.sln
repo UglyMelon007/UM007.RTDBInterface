@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransfer.RTDBWebService
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel.Web", "DataModel.Web\DataModel.Web.csproj", "{3800E105-309B-4776-97BF-1FFCEB8DC24A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Utils", "UnitTest.Utils\UnitTest.Utils.csproj", "{B45A5797-FBBE-4C8D-AA16-F3C9992157B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{3800E105-309B-4776-97BF-1FFCEB8DC24A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3800E105-309B-4776-97BF-1FFCEB8DC24A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3800E105-309B-4776-97BF-1FFCEB8DC24A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B45A5797-FBBE-4C8D-AA16-F3C9992157B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B45A5797-FBBE-4C8D-AA16-F3C9992157B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B45A5797-FBBE-4C8D-AA16-F3C9992157B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B45A5797-FBBE-4C8D-AA16-F3C9992157B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{649AD20E-29C0-4A4B-8EFF-46CAA84EB724} = {6A66FBC0-5CCD-4675-9CBB-F2C0BDF0749C}
 		{DC4E2B2A-404D-42F6-A0CF-B251C38A7F95} = {63E4429D-A2CC-4876-BD33-0158599A88AF}
 		{3800E105-309B-4776-97BF-1FFCEB8DC24A} = {F01B0062-3ACD-4360-80D4-7755766815A8}
+		{B45A5797-FBBE-4C8D-AA16-F3C9992157B8} = {8E3F96B0-65EC-4C76-A333-4E4D1532AA26}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A934C789-7631-44ED-86C0-EC0705EAFE25}
