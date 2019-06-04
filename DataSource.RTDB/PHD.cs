@@ -11,7 +11,7 @@ namespace DataSource.RTDB
 {
     public class PHD : RTDBInterface
     {
-        private readonly ILog _log = LogManager.GetLogger("RTDBTest", typeof(PHD));
+        private readonly ILog _log = LogManager.GetLogger(GlobalAttributes.RepositoryName, typeof(PHD));
         private IConfigurationSection ConfigurationSection;
 
         public PHD()

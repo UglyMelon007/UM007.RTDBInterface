@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataModel.Web\DataModel.Web.csproj" />
+    <ProjectReference Include="..\Framework.Autofac\Framework.Autofac.csproj" />
     <ProjectReference Include="..\Utils.Helper\Utils.Helper.csproj" />
   </ItemGroup>
 
