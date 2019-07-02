@@ -48,7 +48,7 @@ namespace DataTransfer.RTDBWebService.Controllers
         {
             return string.Join(",",
                 RTDBHelper.GetDataByTagsAndDuration(new List<string>(tagsInfo.TagsName.Split(',')),
-                    Convert.ToDateTime(tagsInfo.StartTime), Convert.ToDateTime(tagsInfo.EndTime));
+                    Convert.ToDateTime(tagsInfo.StartTime), Convert.ToDateTime(tagsInfo.EndTime)));
         }
     }
 }
