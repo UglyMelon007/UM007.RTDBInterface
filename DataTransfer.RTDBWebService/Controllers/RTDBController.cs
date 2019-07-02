@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using DataModel.Web;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Utils.Helper;
 
 namespace DataTransfer.RTDBWebService.Controllers
@@ -28,20 +30,25 @@ namespace DataTransfer.RTDBWebService.Controllers
         [HttpGet("GetDataByTagAndDuration")]
         public ActionResult<string> GetDataByTagAndDuration(string tagName, string startTime, string endTime)
         {
-            return $"GetDataByTagAndTime:\r\nTagName:{tagName}\r\nStartTime:{startTime}-EndTime:{endTime}";
+            return string.Join(",",
+                RTDBHelper.GetDataByTagAndDuration(tagName, Convert.ToDateTime(startTime),
+                    Convert.ToDateTime(endTime)));
         }
 
         [HttpPost("GetDataByTagsAndTime")]
         public ActionResult<string> GetDataByTagsAndTime([FromBody] TagsInfo tagsInfo)
         {
-            return $"GetDataByTagAndTime:\r\nTagName:{tagsInfo.TagsName}\r\nDateTime:{tagsInfo.DateTime}";
+            return string.Join(",",
+                RTDBHelper.GetDataByTagsAndTime(new List<string>(tagsInfo.TagsName.Split(',')),
+                    Convert.ToDateTime(tagsInfo.DateTime)));
         }
 
         [HttpPost("GetDataByTagsAndDuration")]
         public ActionResult<string> GetDataByTagsAndDuration([FromBody] TagsInfo tagsInfo)
         {
-            return
-                $"GetDataByTagsAndDuration:\r\nTagName:{tagsInfo.TagsName}\r\nStartTime:{tagsInfo.StartTime}-EndTime:{tagsInfo.EndTime}";
+            return string.Join(",",
+                RTDBHelper.GetDataByTagsAndDuration(new List<string>(tagsInfo.TagsName.Split(',')),
+                    Convert.ToDateTime(tagsInfo.StartTime), Convert.ToDateTime(tagsInfo.EndTime));
         }
     }
 }

@@ -12,21 +12,19 @@ namespace Utils.Helper
             return new PHD().GetDataByTagAndTime(tagName, dateTime, GetIP(tagName));
         }
 
-        public static double[] GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime,
-            string tagIp)
+        public static double[] GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime)
         {
-            throw new NotImplementedException();
+            return new PHD().GetDataByTagAndDuration(tagName, startDateTime, endDateTime,GetIP(tagName));
         }
 
-        public static DataSet GetDataByTagsAndTime(List<string> tagList, DateTime dateTime, string tagIp)
+        public static DataSet GetDataByTagsAndTime(List<string> tagList, DateTime dateTime)
         {
-            throw new NotImplementedException();
+            return new PHD().GetDataByTagsAndTime(tagList,dateTime,GetIP(tagList[0]));
         }
 
-        public static DataSet GetDataByTagsAndDuration(List<string> tagList, DateTime startDateTime,
-            DateTime endDateTime, string tagIp)
+        public static DataSet GetDataByTagsAndDuration(List<string> tagList, DateTime startDateTime, DateTime endDateTime)
         {
-            throw new NotImplementedException();
+            return new PHD().GetDataByTagsAndDuration(tagList, startDateTime, endDateTime, GetIP(tagList[0]));
         }
 
         private static string GetIP(string tagName)
