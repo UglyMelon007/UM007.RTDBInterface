@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using DataSource.RTDB;
+using Utils.Attributes;
 
 namespace Utils.Helper
 {
@@ -29,7 +30,7 @@ namespace Utils.Helper
 
         private static string GetIP(string tagName)
         {
-            return "10.189.100.52";
+            return GlobalAttributes.Configuration.GetSection("RTDBInfo").GetSection("TempIP").Value;
         }
     }
 }
