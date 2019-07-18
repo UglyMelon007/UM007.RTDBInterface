@@ -10,7 +10,8 @@ namespace Utils.Helper
     {
         public static double GetDataByTagAndTime(string tagName, DateTime dateTime)
         {
-            return new PHD().GetDataByTagAndTime(tagName, dateTime, GetIP(tagName));
+            return new PHDR().getPHDTagValue(tagName, dateTime);
+            //return new PHD().GetDataByTagAndTime(tagName, dateTime, GetIP(tagName));
         }
 
         public static double[] GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime)

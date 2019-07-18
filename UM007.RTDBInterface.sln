@@ -24,25 +24,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09-ReadMe", "09-ReadMe", "{
 		C:\Users\UglyM\Desktop\UM007.RTDBDataInterface\ReadMe.txt = C:\Users\UglyM\Desktop\UM007.RTDBDataInterface\ReadMe.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils.Attributes", "Utils.Attributes\Utils.Attributes.csproj", "{FCDDC79A-B820-4414-ABA8-B838088DB3E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils.Attributes", "Utils.Attributes\Utils.Attributes.csproj", "{FCDDC79A-B820-4414-ABA8-B838088DB3E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils.Helper", "Utils.Helper\Utils.Helper.csproj", "{3030302E-7373-422F-8081-1050640450B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils.Helper", "Utils.Helper\Utils.Helper.csproj", "{3030302E-7373-422F-8081-1050640450B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSource.RTDB", "DataSource.RTDB\DataSource.RTDB.csproj", "{35FF1249-3E35-4F7B-9203-3AA0DE24875A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataSource.RTDB", "DataSource.RTDB\DataSource.RTDB.csproj", "{35FF1249-3E35-4F7B-9203-3AA0DE24875A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface.RTDB", "Interface.RTDB\Interface.RTDB.csproj", "{28C056CF-47BF-4BE5-AED9-47007EB7C544}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interface.RTDB", "Interface.RTDB\Interface.RTDB.csproj", "{28C056CF-47BF-4BE5-AED9-47007EB7C544}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.AspectCore", "Framework.AspectCore\Framework.AspectCore.csproj", "{C77E58A0-352E-4059-A8A3-AC3715F46D3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.AspectCore", "Framework.AspectCore\Framework.AspectCore.csproj", "{C77E58A0-352E-4059-A8A3-AC3715F46D3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Log4Net", "Framework.Log4Net\Framework.Log4Net.csproj", "{C779E34D-7517-4913-9745-5F9D2C6D8746}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Log4Net", "Framework.Log4Net\Framework.Log4Net.csproj", "{C779E34D-7517-4913-9745-5F9D2C6D8746}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Autofac", "Framework.Autofac\Framework.Autofac.csproj", "{649AD20E-29C0-4A4B-8EFF-46CAA84EB724}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Autofac", "Framework.Autofac\Framework.Autofac.csproj", "{649AD20E-29C0-4A4B-8EFF-46CAA84EB724}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransfer.RTDBWebService", "DataTransfer.RTDBWebService\DataTransfer.RTDBWebService.csproj", "{DC4E2B2A-404D-42F6-A0CF-B251C38A7F95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransfer.RTDBWebService", "DataTransfer.RTDBWebService\DataTransfer.RTDBWebService.csproj", "{DC4E2B2A-404D-42F6-A0CF-B251C38A7F95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel.Web", "DataModel.Web\DataModel.Web.csproj", "{3800E105-309B-4776-97BF-1FFCEB8DC24A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel.Web", "DataModel.Web\DataModel.Web.csproj", "{3800E105-309B-4776-97BF-1FFCEB8DC24A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Utils", "UnitTest.Utils\UnitTest.Utils.csproj", "{B45A5797-FBBE-4C8D-AA16-F3C9992157B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Utils", "UnitTest.Utils\UnitTest.Utils.csproj", "{B45A5797-FBBE-4C8D-AA16-F3C9992157B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTDBTestConsole", "RTDBTestConsole\RTDBTestConsole.csproj", "{0B38FA67-D87B-443E-B75E-91831BD1FDA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,6 +92,10 @@ Global
 		{B45A5797-FBBE-4C8D-AA16-F3C9992157B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B45A5797-FBBE-4C8D-AA16-F3C9992157B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B45A5797-FBBE-4C8D-AA16-F3C9992157B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B38FA67-D87B-443E-B75E-91831BD1FDA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B38FA67-D87B-443E-B75E-91831BD1FDA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B38FA67-D87B-443E-B75E-91831BD1FDA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B38FA67-D87B-443E-B75E-91831BD1FDA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +111,7 @@ Global
 		{DC4E2B2A-404D-42F6-A0CF-B251C38A7F95} = {63E4429D-A2CC-4876-BD33-0158599A88AF}
 		{3800E105-309B-4776-97BF-1FFCEB8DC24A} = {F01B0062-3ACD-4360-80D4-7755766815A8}
 		{B45A5797-FBBE-4C8D-AA16-F3C9992157B8} = {8E3F96B0-65EC-4C76-A333-4E4D1532AA26}
+		{0B38FA67-D87B-443E-B75E-91831BD1FDA3} = {55F6C74A-2CA7-4DAA-AB52-8F061E86713B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A934C789-7631-44ED-86C0-EC0705EAFE25}
