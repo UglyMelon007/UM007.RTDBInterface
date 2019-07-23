@@ -10,7 +10,7 @@ namespace DataSource.RTDB
 {
     public class PHDR
     {
-        private static readonly ILog _log = LogManager.GetLogger(typeof(PHDR));
+        private static readonly ILog _log = LogManager.GetLogger(GlobalAttributes.RepositoryName,typeof(PHDR));
         private IConfigurationSection ConfigurationSection;
 
         private PHDHistorian _session;

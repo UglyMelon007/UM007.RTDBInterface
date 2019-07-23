@@ -5,6 +5,7 @@ using System.Globalization;
 using DataModel.Web;
 using log4net;
 using Microsoft.AspNetCore.Mvc;
+using Utils.Attributes;
 using Utils.Helper;
 
 namespace DataTransfer.RTDBWebService.Controllers
@@ -13,11 +14,13 @@ namespace DataTransfer.RTDBWebService.Controllers
     [ApiController]
     public class RTDBController : ControllerBase
     {
-        private static readonly ILog _log = LogManager.GetLogger(typeof(RTDBController));
+        private static readonly ILog _log = LogManager.GetLogger(GlobalAttributes.RepositoryName,typeof(RTDBController));
 
         [HttpGet]
         public ActionResult<string> Get()
         {
+            _log.Info(
+                "Get: GetDataByTagAndTime、GetDataByTagAndDuration;\r\nPost:GetDataByTagsAndTime、GetDataByTagsAndDuration");
             return
                 $"Get: GetDataByTagAndTime、GetDataByTagAndDuration;\r\nPost:GetDataByTagsAndTime、GetDataByTagsAndDuration";
         }
