@@ -63,9 +63,9 @@ namespace DataSource.RTDB
         {
             PHDHistorian pHDHistorian = new PHDHistorian();
             Tags tags = new Tags();
-            for (int i = 0; i < tagList.Count; i++)
+            foreach (var t in tagList)
             {
-                tags.Add(new Tag(tagList[i]));
+                tags.Add(new Tag(t));
             }
 
             using (PHDServer pHDServer = GetPHDserver(tagIp))
@@ -79,8 +79,9 @@ namespace DataSource.RTDB
                     pHDHistorian.EndTime = pHDHistorian.ConvertToPHDTime(endDateTime);
                     result = pHDHistorian.FetchRowData(tags);
                 }
-                catch
+                catch (Exception err)
                 {
+                    _log.Error($"取数失败 {err.Message} {err.InnerException} {err.TargetSite}");
                 }
                 finally
                 {

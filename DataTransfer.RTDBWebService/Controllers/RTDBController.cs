@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using DataModel.Web;
+using log4net;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Utils.Helper;
 
 namespace DataTransfer.RTDBWebService.Controllers
@@ -12,6 +13,8 @@ namespace DataTransfer.RTDBWebService.Controllers
     [ApiController]
     public class RTDBController : ControllerBase
     {
+        private static readonly ILog _log = LogManager.GetLogger(typeof(RTDBController));
+
         [HttpGet]
         public ActionResult<string> Get()
         {
@@ -36,11 +39,13 @@ namespace DataTransfer.RTDBWebService.Controllers
         }
 
         [HttpPost("GetDataByTagsAndTime")]
-        public ActionResult<string> GetDataByTagsAndTime([FromBody] TagsInfo tagsInfo)
+        public ActionResult<DataSet> GetDataByTagsAndTime([FromBody] TagsInfo tagsInfo)
         {
-            return string.Join(",",
-                RTDBHelper.GetDataByTagsAndTime(new List<string>(tagsInfo.TagsName.Split(',')),
-                    Convert.ToDateTime(tagsInfo.DateTime)));
+            IList<string> tagsName = new List<string>(tagsInfo.TagsName.Split(','));
+            _log.Info($"开始取数据，位号个数{tagsName.Count}, 时间：{DateTime.Now.ToLongTimeString()}");
+            DataSet ds = RTDBHelper.GetDataByTagsAndTime(tagsName, Convert.ToDateTime(tagsInfo.DateTime));
+            _log.Info($"取数完成，时间：{DateTime.Now.ToLongTimeString()}");
+            return ds;
         }
 
         [HttpPost("GetDataByTagsAndDuration")]
