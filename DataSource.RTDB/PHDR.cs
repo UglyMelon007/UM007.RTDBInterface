@@ -100,7 +100,7 @@ namespace DataSource.RTDB
         public DataSet GetDataByTagsAndDuration(IList<string> tagNames, DateTime startTime, DateTime endTime,
             uint period)
         {
-            _log.Debug("开始读取" + tagNames.Count.ToString() + "个数据点，从" + startTime.ToShortTimeString() + "到" +
+            _log.Info("开始读取" + tagNames.Count.ToString() + "个数据点，从" + startTime.ToShortTimeString() + "到" +
                        endTime.ToShortTimeString() + "的实时数据库数据。");
             _session.StartTime = _session.ConvertToPHDTime(startTime);
             _session.EndTime = _session.ConvertToPHDTime(endTime);
