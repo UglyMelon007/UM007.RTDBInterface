@@ -1,5 +1,4 @@
 using System;
-using Autofac;
 using Framework.Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utils.Helper;
@@ -9,12 +8,10 @@ namespace UnitTest.Utils
     [TestClass]
     public class RTDBInterfaceTest
     {
-        private IContainer _container;
-
         [TestInitialize]
         public void TestInit()
         {
-            _container = AutofacModule.InitTest();
+            AutofacModule.InitTest();
         }
 
         [TestMethod]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using Interface.RTDB;
 using log4net;
 using Microsoft.Extensions.Configuration;
@@ -91,7 +92,7 @@ namespace DataSource.RTDB
         public DataSet GetDataByTagAndDuration(string tagName, DateTime startTime, DateTime endTime, uint period = 1)
         {
             DataSet ds;
-            _log.Info($"开始读取{tagName}从{startTime.ToString()}到{endTime.ToString()}的实时数据库数据。");
+            _log.Info($"开始读取{tagName}从{startTime.ToString(CultureInfo.InvariantCulture)}到{endTime.ToString(CultureInfo.InvariantCulture)}的实时数据库数据。");
             _session.StartTime = _session.ConvertToPHDTime(startTime);
             _session.EndTime = _session.ConvertToPHDTime(endTime);
             _session.SampleFrequency = period;

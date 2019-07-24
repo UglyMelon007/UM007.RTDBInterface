@@ -99,7 +99,7 @@ namespace DataSource.RTDB
         private DataSet GetDataByTagAndTime(string tagName, DateTime startDateTime, DateTime endDateTime,
             uint period = 1)
         {
-            _log.Info($"开始取数");
+            _log.Info("开始取数");
             DataSet ds;
             _session.StartTime = _session.ConvertToPHDTime(startDateTime);
             _session.EndTime = _session.ConvertToPHDTime(endDateTime);
@@ -109,7 +109,7 @@ namespace DataSource.RTDB
             try
             {
                 ds = _session.FetchRowData(tagName);
-                _log.Info($"取数成功");
+                _log.Info("取数成功");
             }
             catch (Exception err)
             {
