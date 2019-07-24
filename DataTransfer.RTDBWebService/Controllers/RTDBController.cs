@@ -52,7 +52,7 @@ namespace DataTransfer.RTDBWebService.Controllers
             return ds;
         }
 
-        [HttpGet("GetCurrentDataByTags")]
+        [HttpPost("GetCurrentDataByTags")]
         public ActionResult<DataSet> GetCurrentDataByTags([FromBody] TagsInfo tagsInfo)
         {
             IList<string> tagsName = new List<string>(tagsInfo.TagsName.Split(','));
