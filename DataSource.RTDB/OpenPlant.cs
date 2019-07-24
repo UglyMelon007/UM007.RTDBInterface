@@ -7,27 +7,32 @@ namespace DataSource.RTDB
 {
     public class OpenPlant : RTDBInterface
     {
-        public OpenPlant()
-        {
-        }
-
-        public double GetDataByTagAndTime(string tagName, DateTime dateTime, string tagIp)
+        public DataSet GetCurrentDataByTag(string tagName)
         {
             throw new NotImplementedException();
         }
 
-        public double[] GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime,
-            string tagIp)
+        public DataSet GetDataByTagAndTime(string tagName, DateTime dateTime)
         {
             throw new NotImplementedException();
         }
 
-        public DataSet GetDataByTagsAndTime(List<string> tagName, DateTime dateTime, string tagIp)
+        public DataSet GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime, uint period = 1)
         {
             throw new NotImplementedException();
         }
 
-        public DataSet GetDataByTagsAndDuration(List<string> tagList, DateTime startDateTime, DateTime endDateTime, string tagIp)
+        public DataSet GetCurrentDataByTags(IList<string> tagList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataSet GetDataByTagsAndTime(IList<string> tagList, DateTime dateTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataSet GetDataByTagsAndDuration(IList<string> tagList, DateTime startDateTime, DateTime endDateTime, uint period = 1)
         {
             throw new NotImplementedException();
         }

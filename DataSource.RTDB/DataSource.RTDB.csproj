@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Interface.RTDB\Interface.RTDB.csproj" />
     <ProjectReference Include="..\Utils.Attributes\Utils.Attributes.csproj" />
+    <ProjectReference Include="..\Utils.ExtensionMethods\Utils.ExtensionMethods.csproj" />
   </ItemGroup>
 
   <ItemGroup>

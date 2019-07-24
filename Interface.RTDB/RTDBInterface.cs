@@ -8,13 +8,19 @@ namespace Interface.RTDB
 
     {
         /// <summary>
-        /// 单个点当前指定时间值
+        /// 单个点当前值
+        /// </summary>
+        /// <param name="tagName"></param>
+        /// <returns></returns>
+        DataSet GetCurrentDataByTag(string tagName);
+
+        /// <summary>
+        /// 单个点指定时间值
         /// </summary>
         /// <param name="tagName"></param>
         /// <param name="dateTime"></param>
-        /// <param name="tagIp"></param>
         /// <returns></returns>
-        double GetDataByTagAndTime(string tagName, DateTime dateTime, string tagIp);
+        DataSet GetDataByTagAndTime(string tagName, DateTime dateTime);
 
         /// <summary>
         /// 单个点一段时间段值 
@@ -22,18 +28,25 @@ namespace Interface.RTDB
         /// <param name="tagName"></param>
         /// <param name="startDateTime"></param>
         /// <param name="endDateTime"></param>
-        /// <param name="tagIp"></param>
+        /// <param name="period"></param>
         /// <returns></returns>
-        double[] GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime, string tagIp);
+        DataSet GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime, uint period = 1);
+
+
+        /// <summary>
+        /// 多个点当前值
+        /// </summary>
+        /// <param name="tagList"></param>
+        /// <returns></returns>
+        DataSet GetCurrentDataByTags(IList<string> tagList);
 
         /// <summary>
         /// 多个点指定时间值
         /// </summary>
-        /// <param name="tagName"></param>
+        /// <param name="tagList"></param>
         /// <param name="dateTime"></param>
-        /// <param name="tagIp"></param>
         /// <returns></returns>
-        DataSet GetDataByTagsAndTime(List<string> tagList, DateTime dateTime, string tagIp);
+        DataSet GetDataByTagsAndTime(IList<string> tagList, DateTime dateTime);
 
         /// <summary>
         /// 多个点指定时间段值
@@ -41,9 +54,9 @@ namespace Interface.RTDB
         /// <param name="tagList"></param>
         /// <param name="startDateTime"></param>
         /// <param name="endDateTime"></param>
-        /// <param name="tagIp"></param>
+        /// <param name="period"></param>
         /// <returns></returns>
-        DataSet GetDataByTagsAndDuration(List<string> tagList, DateTime startDateTime, DateTime endDateTime,
-            string tagIp);
+        DataSet GetDataByTagsAndDuration(IList<string> tagList, DateTime startDateTime, DateTime endDateTime,
+            uint period = 1);
     }
 }

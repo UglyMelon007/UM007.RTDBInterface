@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using Interface.RTDB;
 using log4net;
 using Microsoft.Extensions.Configuration;
+using Utils.ExtensionMethods;
 using Uniformance.PHD;
 using Utils.Attributes;
 
 namespace DataSource.RTDB
 {
-    public class PHDR
+    public class PHDR : RTDBInterface
     {
-        private static readonly ILog _log = LogManager.GetLogger(GlobalAttributes.RepositoryName,typeof(PHDR));
-        private IConfigurationSection ConfigurationSection;
-
-        private PHDHistorian _session;
+        private static readonly ILog _log = LogManager.GetLogger(GlobalAttributes.RepositoryName, typeof(PHDR));
+        private readonly PHDHistorian _session;
 
 
         public PHDR()
         {
-            ConfigurationSection = GlobalAttributes.Configuration.GetSection("RTDBInfo").GetSection("PHD");
+            var configurationSection = GlobalAttributes.Configuration.GetSection("RTDBInfo").GetSection("PHD");
             string tempIp = GlobalAttributes.Configuration.GetSection("RTDBInfo").GetSection("TempIP").Value;
-            IConfigurationSection phdInfo = ConfigurationSection.GetSection(tempIp);
+            IConfigurationSection phdInfo = configurationSection.GetSection(tempIp);
             PHDServer _phdServer = new PHDServer
             {
                 HostName = tempIp,
@@ -32,22 +32,52 @@ namespace DataSource.RTDB
         }
 
         /// <summary>
+        /// 获取一个点位的当前值
+        /// </summary>
+        /// <param name="tagName">位号</param>
+        /// <returns>点位数据结构</returns>
+        public DataSet GetCurrentDataByTag(string tagName)
+        {
+            _log.Info("开始读取" + tagName + "当前时间的实时数据库数据。");
+            DataSet ds;
+            _session.StartTime = "Now";
+            _session.EndTime = "Now";
+            _session.MaximumRows = 1;
+            try
+            {
+                ds = _session.FetchRowData(tagName);
+                if (ds == null || ds.Tables[0].Rows.Count == 0)
+                {
+                    _log.Error($"此位号不存在现值，位号为：{tagName}");
+                    ds = new DataSet().DefaultDataSet();
+                }
+            }
+            catch (Exception err)
+            {
+                _log.Error("实时数据库读取失败，请检查连接到PHD地址、用户名和口令是否正确！或检查查询的数据点是否存在！");
+                _log.Error(err.Message);
+                ds = new DataSet().DefaultDataSet();
+            }
+
+            return ds;
+        }
+
+        /// <summary>
         /// 查询指定时间Tag值
         /// </summary>
         /// <param name="tagName">点位号</param>
         /// <param name="valueTime">查询时间</param>
         /// <returns>点位数据结构</returns>
-        public double GetPHDTagValue(string tagName, DateTime valueTime)
+        public DataSet GetDataByTagAndTime(string tagName, DateTime valueTime)
         {
-            DataSet ds = GetDataByTagAndDuration(tagName, valueTime, valueTime, 1);
-            if ((ds == null) || (ds.Tables[0].Rows.Count == 0))
+            DataSet ds = GetDataByTagAndDuration(tagName, valueTime, valueTime);
+            if (ds == null || ds.Tables[0].Rows.Count == 0)
             {
                 _log.Error("该时间点此位号不存在数据，位号为：" + tagName);
-                return double.Parse("0");
+                ds = new DataSet().DefaultDataSet();
             }
 
-            DataRow dr = ds.Tables[0].Rows[0];
-            return double.Parse(dr["Value"].ToString());
+            return ds;
         }
 
         /// <summary>
@@ -58,23 +88,55 @@ namespace DataSource.RTDB
         /// <param name="endTime"></param>
         /// <param name="period"></param>
         /// <returns>结果集，字段分别为"Tag", "timestamp", "Value", "Conf", "HostName"</returns>
-        private DataSet GetDataByTagAndDuration(string tagName, DateTime startTime, DateTime endTime, uint period)
+        public DataSet GetDataByTagAndDuration(string tagName, DateTime startTime, DateTime endTime, uint period = 1)
         {
-            _log.Info("开始读取" + tagName + "从" + startTime.ToString() + "到" + endTime.ToString() + "的实时数据库数据。");
+            DataSet ds;
+            _log.Info($"开始读取{tagName}从{startTime.ToString()}到{endTime.ToString()}的实时数据库数据。");
             _session.StartTime = _session.ConvertToPHDTime(startTime);
             _session.EndTime = _session.ConvertToPHDTime(endTime);
-            _session.SampleFrequency = (uint) period;
+            _session.SampleFrequency = period;
             _session.MaximumRows = 0;
             try
             {
-                return _session.FetchRowData(tagName);
+                ds = _session.FetchRowData(tagName);
             }
             catch (Exception err)
             {
-                _log.Error("实时数据库读取失败，请检查连接到PHD地址、用户名和口令是否正确！或检查查询的数据点是否存在！");
                 _log.Error($"{err.Message} {err.InnerException} {err.Source}");
-                return default(DataSet);
+                ds = new DataSet().DefaultDataSet();
             }
+
+            return ds;
+        }
+
+        /// <summary>
+        /// 获取多个点位的当前值
+        /// </summary>
+        /// <param name="tagNames">位号</param>
+        /// <returns>多个点位的tag值的数据结构</returns>
+        public DataSet GetCurrentDataByTags(IList<string> tagNames)
+        {
+            _log.Info($"开始读取{tagNames.Count}个数据点当前时间的实时数据库数据。");
+            _session.StartTime = "Now";
+            _session.EndTime = "Now";
+            DataSet ds;
+            Tags tags = new Tags();
+            foreach (string tagName in tagNames)
+            {
+                tags.Add(new Tag(tagName));
+            }
+
+            try
+            {
+                ds = _session.FetchRowData(tags);
+            }
+            catch (Exception err)
+            {
+                _log.Error(err.Message);
+                ds = new DataSet().DefaultDataSet();
+            }
+
+            return ds;
         }
 
         /// <summary>
@@ -85,7 +147,7 @@ namespace DataSource.RTDB
         /// <returns>多个点位的tag值的数据结构</returns>
         public DataSet GetDataByTagsAndTime(IList<string> tagNames, DateTime valueTime)
         {
-            DataSet ds = GetDataByTagsAndDuration(tagNames, valueTime, valueTime, 1);
+            DataSet ds = GetDataByTagsAndDuration(tagNames, valueTime, valueTime);
             return ds;
         }
 
@@ -98,10 +160,10 @@ namespace DataSource.RTDB
         /// <param name="period">采样间隔</param>
         /// <returns>结果集，字段分别为"Tag", "timestamp", "Value", "Conf", "HostName"</returns>
         public DataSet GetDataByTagsAndDuration(IList<string> tagNames, DateTime startTime, DateTime endTime,
-            uint period)
+            uint period = 1)
         {
             _log.Info("开始读取" + tagNames.Count.ToString() + "个数据点，从" + startTime.ToShortTimeString() + "到" +
-                       endTime.ToShortTimeString() + "的实时数据库数据。");
+                      endTime.ToShortTimeString() + "的实时数据库数据。");
             _session.StartTime = _session.ConvertToPHDTime(startTime);
             _session.EndTime = _session.ConvertToPHDTime(endTime);
             _session.SampleFrequency = period;
@@ -118,9 +180,8 @@ namespace DataSource.RTDB
             }
             catch (Exception err)
             {
-                _log.Error("实时数据库读取失败，请检查连接到PHD地址、用户名和口令是否正确！或检查查询的数据点是否存在！");
                 _log.Error($"{err.Message} {err.InnerException} {err.Source} {err.TargetSite}");
-                return default(DataSet);
+                return new DataSet().DefaultDataSet();
             }
         }
     }

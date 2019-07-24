@@ -8,28 +8,35 @@ namespace Utils.Helper
 {
     public static class RTDBHelper
     {
-        public static double GetDataByTagAndTime(string tagName, DateTime dateTime)
+        public static DataSet GetCurrentDataByTag(string tagName)
         {
-            return new PHDR().GetPHDTagValue(tagName, dateTime);
-            //return new PHD().GetDataByTagAndTime(tagName, dateTime, GetIP(tagName));
+            return new PHDR().GetCurrentDataByTag(tagName);
         }
 
-        public static double[] GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime)
+        public static DataSet GetDataByTagAndTime(string tagName, DateTime dateTime)
         {
-            //return new PHDR().GetDataByTagAndDuration(tagName, startDateTime, endDateTime);
-            return new PHD().GetDataByTagAndDuration(tagName, startDateTime, endDateTime, GetIP(tagName));
+            return new PHDR().GetDataByTagAndTime(tagName, dateTime);
+        }
+
+        public static DataSet GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime)
+        {
+            return new PHDR().GetDataByTagAndDuration(tagName, startDateTime, endDateTime);
+        }
+
+        public static DataSet GetCurrentDataByTags(IList<string> tagList)
+        {
+            return new PHDR().GetCurrentDataByTags(tagList);
         }
 
         public static DataSet GetDataByTagsAndTime(IList<string> tagList, DateTime dateTime)
         {
             return new PHDR().GetDataByTagsAndTime(tagList, dateTime);
-            //return new PHD().GetDataByTagsAndTime(tagList,dateTime,GetIP(tagList[0]));
         }
 
-        public static DataSet GetDataByTagsAndDuration(List<string> tagList, DateTime startDateTime,
+        public static DataSet GetDataByTagsAndDuration(IList<string> tagList, DateTime startDateTime,
             DateTime endDateTime)
         {
-            return new PHD().GetDataByTagsAndDuration(tagList, startDateTime, endDateTime, GetIP(tagList[0]));
+            return new PHDR().GetDataByTagsAndDuration(tagList, startDateTime, endDateTime);
         }
 
         private static string GetIP(string tagName)

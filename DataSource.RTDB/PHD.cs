@@ -6,123 +6,123 @@ using log4net;
 using Uniformance.PHD;
 using Microsoft.Extensions.Configuration;
 using Utils.Attributes;
+using Utils.ExtensionMethods;
 
 namespace DataSource.RTDB
 {
     public class PHD : RTDBInterface
     {
         private readonly ILog _log = LogManager.GetLogger(GlobalAttributes.RepositoryName, typeof(PHD));
-        private IConfigurationSection ConfigurationSection;
+        private readonly PHDHistorian _session;
+
 
         public PHD()
         {
-            ConfigurationSection = GlobalAttributes.Configuration.GetSection("RTDBInfo").GetSection("PHD");
-        }
-
-        public PHDServer GetPHDserver(string tagIp)
-        {
-            IConfigurationSection phdInfo = ConfigurationSection.GetSection(tagIp);
-            var pHDServer = new PHDServer(tagIp, SERVERVERSION.API200)
+            var configurationSection = GlobalAttributes.Configuration.GetSection("RTDBInfo").GetSection("PHD");
+            string tempIp = GlobalAttributes.Configuration.GetSection("RTDBInfo").GetSection("TempIP").Value;
+            IConfigurationSection phdInfo = configurationSection.GetSection(tempIp);
+            var _phdServer = new PHDServer(tempIp, SERVERVERSION.API200)
             {
                 UserName = phdInfo.GetSection("UserName").Value,
                 Password = phdInfo.GetSection("Password").Value,
                 Port = Convert.ToInt32(phdInfo.GetSection("Port").Value),
             };
-            _log.Info($"UserName:{pHDServer.UserName}\r\nPassword:{pHDServer.Password}\r\nPort:{pHDServer.Port}");
-            return pHDServer;
+            _log.Info($"UserName:{_phdServer.UserName}\r\nPassword:{_phdServer.Password}\r\nPort:{_phdServer.Port}");
+            _session = new PHDHistorian {DefaultServer = _phdServer};
         }
 
-        public double GetDataByTagAndTime(string tagName, DateTime dateTime, string tagIp)
+        public DataSet GetCurrentDataByTag(string tagName)
         {
-            double[] result = GetDataByTagAndTime(tagName, dateTime, dateTime, tagIp);
-            return result != null ? double.Parse(result[0].ToString()) : 0.0;
+            throw new NotImplementedException();
         }
 
-        public double[] GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime,
-            string tagIp)
+        public DataSet GetDataByTagAndTime(string tagName, DateTime dateTime)
         {
-            double[] result = GetDataByTagAndTime(tagName, startDateTime, endDateTime, tagIp);
+            DataSet ds = GetDataByTagAndTime(tagName, dateTime, dateTime);
+            return ds;
+        }
+
+        public DataSet GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime,
+            uint period = 1)
+        {
+            return GetDataByTagAndTime(tagName, startDateTime, endDateTime, period);
+        }
+
+        public DataSet GetCurrentDataByTags(IList<string> tagList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataSet GetDataByTagsAndTime(IList<string> tagList, DateTime dateTime)
+        {
+            DataSet result = GetDataByTagsAndTime(tagList, dateTime, dateTime);
             return result;
         }
 
-        public DataSet GetDataByTagsAndTime(List<string> tagList, DateTime dateTime, string tagIp)
+        public DataSet GetDataByTagsAndDuration(IList<string> tagList, DateTime startDateTime, DateTime endDateTime,
+            uint period = 1)
         {
-            DataSet result = GetDataByTagsAndTime(tagList, dateTime, dateTime, tagIp);
+            DataSet result = GetDataByTagsAndTime(tagList, startDateTime, startDateTime, period);
             return result;
         }
 
-        public DataSet GetDataByTagsAndDuration(List<string> tagList, DateTime startDateTime, DateTime endDateTime,
-            string tagIp)
+        private DataSet GetDataByTagsAndTime(IList<string> tagList, DateTime startDateTime, DateTime endDateTime,
+            uint period = 1)
         {
-            DataSet result = GetDataByTagsAndTime(tagList, startDateTime, startDateTime, tagIp);
-            return result;
-        }
-
-        private DataSet GetDataByTagsAndTime(List<string> tagList, DateTime startDateTime, DateTime endDateTime,
-            string tagIp)
-        {
-            PHDHistorian pHDHistorian = new PHDHistorian();
             Tags tags = new Tags();
             foreach (var t in tagList)
             {
                 tags.Add(new Tag(t));
             }
 
-            using (PHDServer pHDServer = GetPHDserver(tagIp))
+            DataSet ds;
+            try
             {
-                DataSet result = new DataSet();
-                try
-                {
-                    pHDHistorian.DefaultServer = pHDServer;
-                    pHDHistorian.FetchRowData(tags);
-                    pHDHistorian.StartTime = pHDHistorian.ConvertToPHDTime(startDateTime);
-                    pHDHistorian.EndTime = pHDHistorian.ConvertToPHDTime(endDateTime);
-                    result = pHDHistorian.FetchRowData(tags);
-                }
-                catch (Exception err)
-                {
-                    _log.Error($"取数失败 {err.Message} {err.InnerException} {err.TargetSite}");
-                }
-                finally
-                {
-                    pHDServer.Dispose();
-                }
-
-                return result;
+                _session.StartTime = _session.ConvertToPHDTime(startDateTime);
+                _session.EndTime = _session.ConvertToPHDTime(endDateTime);
+                _session.SampleFrequency = period;
+                ds = _session.FetchRowData(tags);
             }
+            catch (Exception err)
+            {
+                _log.Error($"取数失败 {err.Message} {err.InnerException} {err.TargetSite}");
+                ds = new DataSet().DefaultDataSet();
+            }
+            finally
+            {
+                _session.Dispose();
+            }
+
+            return ds;
         }
 
-        private double[] GetDataByTagAndTime(string tagName, DateTime startDateTime, DateTime endDateTime,
-            string tagIp)
+        private DataSet GetDataByTagAndTime(string tagName, DateTime startDateTime, DateTime endDateTime,
+            uint period = 1)
         {
             _log.Info($"开始取数");
-            PHDHistorian pHDHistorian = new PHDHistorian();
-            using (PHDServer pHDServer = GetPHDserver(tagIp))
-            {
-                pHDHistorian.DefaultServer = pHDServer;
-                pHDHistorian.StartTime = pHDHistorian.ConvertToPHDTime(startDateTime);
-                pHDHistorian.EndTime = pHDHistorian.ConvertToPHDTime(endDateTime);
-                pHDHistorian.Sampletype = SAMPLETYPE.Raw;
-                double[] array = null;
-                short[] array2 = null;
-                double[] result = null;
-                try
-                {
-                    pHDHistorian.FetchData(new Tag(tagName), ref array, ref result, ref array2);
-                    _log.Info($"取数成功");
-                }
-                catch (Exception err)
-                {
-                    _log.Info($"取数失败{err.Message}\r\n{err.InnerException}\r\n{err.Source}\r\n{err.TargetSite}");
-                    pHDServer.Dispose();
-                }
-                finally
-                {
-                    pHDServer.Dispose();
-                }
+            DataSet ds;
+            _session.StartTime = _session.ConvertToPHDTime(startDateTime);
+            _session.EndTime = _session.ConvertToPHDTime(endDateTime);
+            _session.SampleFrequency = period;
+            _session.Sampletype = SAMPLETYPE.Raw;
 
-                return result;
+            try
+            {
+                ds = _session.FetchRowData(tagName);
+                _log.Info($"取数成功");
             }
+            catch (Exception err)
+            {
+                _log.Info($"取数失败{err.Message}\r\n{err.InnerException}\r\n{err.Source}\r\n{err.TargetSite}");
+                _session.Dispose();
+                ds = new DataSet().DefaultDataSet();
+            }
+            finally
+            {
+                _session.Dispose();
+            }
+
+            return ds;
         }
     }
 }
