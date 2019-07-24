@@ -19,9 +19,9 @@ namespace DataTransfer.RTDBWebService.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
-            return "Get: GetDataByTagAndTime(获取指定位号指定时间的值)、GetDataByTagAndDuration(获取指定位号指定时间段的值);\r\n" +
-                   "Post:GetDataByTagsAndTime(获取多个位号指定时间的值)、GetDataByTagsAndDuration(获取多个位号指定时间段的值)\r\n" +
-                   "时间类型：yyyy-MM-dd hh:mm:ss";
+            return "Get: GetCurrentDataByTag(获取指定位号当前值)、GetDataByTagAndTime(获取指定位号指定时间的值)、GetDataByTagAndDuration(获取指定位号指定时间段的值);\r\n" +
+                   "Post: GetCurrentDataByTags(获取多个位号当前值)、GetDataByTagsAndTime(获取多个位号指定时间的值)、GetDataByTagsAndDuration(获取多个位号指定时间段的值)\r\n" +
+                   "时间格式：yyyy-MM-dd hh:mm:ss";
         }
 
         [HttpGet("GetCurrentDataByTag")]
