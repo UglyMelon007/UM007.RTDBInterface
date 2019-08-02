@@ -25,62 +25,62 @@ namespace DataTransfer.RTDBWebService.Controllers
         }
 
         [HttpGet("GetCurrentDataByTag")]
-        public ActionResult<DataSet> GetCurrentDataByTag(string tagName)
+        public ActionResult<string> GetCurrentDataByTag(string tagName)
         {
             _log.Info($"开始取数据，位号:{tagName}, 时间：{DateTime.Now.ToLongTimeString()}");
-            DataSet ds = RTDBHelper.GetCurrentDataByTag(tagName);
+            var result = RTDBHelper.GetCurrentDataByTag(tagName);
             _log.Info($"取数完成，时间：{DateTime.Now.ToLongTimeString()}");
-            return ds;
+            return result;
         }
 
         [HttpGet("GetDataByTagAndTime")]
-        public ActionResult<DataSet> GetDataByTagAndTime(string tagName, string dateTime)
+        public ActionResult<string> GetDataByTagAndTime(string tagName, string dateTime)
         {
             _log.Info($"开始取数据，位号:{tagName}, 时间：{DateTime.Now.ToLongTimeString()}");
-            DataSet ds = RTDBHelper.GetDataByTagAndTime(tagName, Convert.ToDateTime(dateTime));
+            var result = RTDBHelper.GetDataByTagAndTime(tagName, Convert.ToDateTime(dateTime));
             _log.Info($"取数完成，时间：{DateTime.Now.ToLongTimeString()}");
-            return ds;
+            return result;
         }
 
         [HttpGet("GetDataByTagAndDuration")]
-        public ActionResult<DataSet> GetDataByTagAndDuration(string tagName, string startTime, string endTime)
+        public ActionResult<string> GetDataByTagAndDuration(string tagName, string startTime, string endTime)
         {
             _log.Info($"开始取数据，位号:{tagName}, 时间：{DateTime.Now.ToLongTimeString()}");
-            DataSet ds = RTDBHelper.GetDataByTagAndDuration(tagName, Convert.ToDateTime(startTime),
+            var result = RTDBHelper.GetDataByTagAndDuration(tagName, Convert.ToDateTime(startTime),
                 Convert.ToDateTime(endTime));
             _log.Info($"取数完成，时间：{DateTime.Now.ToLongTimeString()}");
-            return ds;
+            return result;
         }
 
         [HttpPost("GetCurrentDataByTags")]
-        public ActionResult<DataSet> GetCurrentDataByTags([FromBody] TagsInfo tagsInfo)
+        public ActionResult<string> GetCurrentDataByTags([FromBody] TagsInfo tagsInfo)
         {
             IList<string> tagsName = new List<string>(tagsInfo.TagsName.Split(','));
             _log.Info($"开始取数据，位号个数{tagsName.Count}, 时间：{DateTime.Now.ToLongTimeString()}");
-            DataSet ds = RTDBHelper.GetCurrentDataByTags(tagsName);
+            var result = RTDBHelper.GetCurrentDataByTags(tagsName);
             _log.Info($"取数完成，时间：{DateTime.Now.ToLongTimeString()}");
-            return ds;
+            return result;
         }
 
         [HttpPost("GetDataByTagsAndTime")]
-        public ActionResult<DataSet> GetDataByTagsAndTime([FromBody] TagsInfo tagsInfo)
+        public ActionResult<string> GetDataByTagsAndTime([FromBody] TagsInfo tagsInfo)
         {
             IList<string> tagsName = new List<string>(tagsInfo.TagsName.Split(','));
             _log.Info($"开始取数据，位号个数{tagsName.Count}, 时间：{DateTime.Now.ToLongTimeString()}");
-            DataSet ds = RTDBHelper.GetDataByTagsAndTime(tagsName, Convert.ToDateTime(tagsInfo.DateTime));
+            var result = RTDBHelper.GetDataByTagsAndTime(tagsName, Convert.ToDateTime(tagsInfo.DateTime));
             _log.Info($"取数完成，时间：{DateTime.Now.ToLongTimeString()}");
-            return ds;
+            return result;
         }
 
         [HttpPost("GetDataByTagsAndDuration")]
-        public ActionResult<DataSet> GetDataByTagsAndDuration([FromBody] TagsInfo tagsInfo)
+        public ActionResult<string> GetDataByTagsAndDuration([FromBody] TagsInfo tagsInfo)
         {
             IList<string> tagsName = new List<string>(tagsInfo.TagsName.Split(','));
             _log.Info($"开始取数据，位号个数{tagsName.Count}, 时间：{DateTime.Now.ToLongTimeString()}");
-            DataSet ds = RTDBHelper.GetDataByTagsAndDuration(tagsName, Convert.ToDateTime(tagsInfo.StartTime),
-                Convert.ToDateTime(tagsInfo.EndTime));
+            var result = RTDBHelper.GetDataByTagsAndDuration(tagsName, Convert.ToDateTime(tagsInfo.StartTime),
+                Convert.ToDateTime(tagsInfo.EndTime),Convert.ToUInt32(tagsInfo.Period));
             _log.Info($"取数完成，时间：{DateTime.Now.ToLongTimeString()}");
-            return ds;
+            return result;
         }
     }
 }

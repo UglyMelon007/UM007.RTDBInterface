@@ -92,7 +92,8 @@ namespace DataSource.RTDB
         public DataSet GetDataByTagAndDuration(string tagName, DateTime startTime, DateTime endTime, uint period = 1)
         {
             DataSet ds;
-            _log.Info($"开始读取{tagName}从{startTime.ToString(CultureInfo.InvariantCulture)}到{endTime.ToString(CultureInfo.InvariantCulture)}的实时数据库数据。");
+            _log.Info(
+                $"开始读取{tagName}从{startTime.ToString(CultureInfo.InvariantCulture)}到{endTime.ToString(CultureInfo.InvariantCulture)}的实时数据库数据。");
             _session.StartTime = _session.ConvertToPHDTime(startTime);
             _session.EndTime = _session.ConvertToPHDTime(endTime);
             _session.SampleFrequency = period;
@@ -161,10 +162,10 @@ namespace DataSource.RTDB
         /// <param name="period">采样间隔</param>
         /// <returns>结果集，字段分别为"Tag", "timestamp", "Value", "Conf", "HostName"</returns>
         public DataSet GetDataByTagsAndDuration(IList<string> tagNames, DateTime startTime, DateTime endTime,
-            uint period = 1)
+            uint period = 0)
         {
-            _log.Info("开始读取" + tagNames.Count.ToString() + "个数据点，从" + startTime.ToShortTimeString() + "到" +
-                      endTime.ToShortTimeString() + "的实时数据库数据。");
+            _log.Info(
+                $"开始读取{tagNames.Count.ToString()}个数据点，从{startTime.ToShortTimeString()}到{endTime.ToShortTimeString()}的实时数据库数据。取数周期为{period}");
             _session.StartTime = _session.ConvertToPHDTime(startTime);
             _session.EndTime = _session.ConvertToPHDTime(endTime);
             _session.SampleFrequency = period;
