@@ -19,9 +19,9 @@ namespace Utils.Helper
             return new PHDR().GetDataByTagAndTime(tagName, dateTime).DataFormat();
         }
 
-        public static string GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime)
+        public static string GetDataByTagAndDuration(string tagName, DateTime startDateTime, DateTime endDateTime, uint period = 0)
         {
-            return new PHDR().GetDataByTagAndDuration(tagName, startDateTime, endDateTime).DataFormat();
+            return new PHDR().GetDataByTagAndDuration(tagName, startDateTime, endDateTime, period.Init(startDateTime, endDateTime)).DataFormat();
         }
 
         public static string GetCurrentDataByTags(IList<string> tagList)

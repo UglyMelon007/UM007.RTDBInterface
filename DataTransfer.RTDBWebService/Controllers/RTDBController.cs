@@ -43,11 +43,11 @@ namespace DataTransfer.RTDBWebService.Controllers
         }
 
         [HttpGet("GetDataByTagAndDuration")]
-        public ActionResult<string> GetDataByTagAndDuration(string tagName, string startTime, string endTime)
+        public ActionResult<string> GetDataByTagAndDuration(string tagName, string startTime, string endTime, string period)
         {
             _log.Info($"开始取数据，位号:{tagName}, 时间：{DateTime.Now.ToLongTimeString()}");
             var result = RTDBHelper.GetDataByTagAndDuration(tagName, Convert.ToDateTime(startTime),
-                Convert.ToDateTime(endTime));
+                Convert.ToDateTime(endTime), Convert.ToUInt32(period));
             _log.Info($"取数完成，时间：{DateTime.Now.ToLongTimeString()}");
             return result;
         }

@@ -25,7 +25,7 @@ namespace Utils.ExtensionMethods
             }
             else if (days >= 1)
             {
-                period = 10;
+                period = 15;
             }
             else
             {
